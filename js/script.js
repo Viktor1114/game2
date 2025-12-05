@@ -184,57 +184,74 @@ function startScratch() {
 
     const card = document.getElementById("card");
     card.innerHTML = `
-        <h2>Сотри и узнаешь ✨</h2>
-        <p style="opacity:0.75;">Потри экран пальцем или мышкой 😊</p>
-        <canvas id="scratch" width="300" height="200"></canvas>
+        <h2>Сотри и посмотри ✨</h2>
+        <p style="opacity:0.75;">Проведи пальцем или мышкой ❤️</p>
+
+        <div style="
+            position:relative;
+            width:300px;
+            height:200px;
+            margin:0 auto;
+            border-radius:15px;
+            overflow:hidden;
+        ">
+            <img id="hidden-img" src="img/surprise.jpg" 
+                style="width:100%; height:100%; object-fit:cover; position:absolute; left:0; top:0;">
+
+            <canvas id="scratch" width="300" height="200" 
+                style="position:absolute; left:0; top:0;"></canvas>
+        </div>
     `;
 
     const canvas = document.getElementById("scratch");
     const ctx = canvas.getContext("2d");
 
-    ctx.fillStyle = "#999";
-    ctx.fillRect(0,0,300,200);
+    // Серый слой поверх изображения
+    ctx.fillStyle = "#b8b8b8";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     ctx.globalCompositeOperation = "destination-out";
 
     let scratching = false;
 
     function scratch(e) {
         if (!scratching) return;
+
         const rect = canvas.getBoundingClientRect();
         const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
         const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
 
         ctx.beginPath();
-        ctx.arc(x, y, 25, 0, Math.PI * 2);
+        ctx.arc(x, y, 28, 0, Math.PI * 2);
         ctx.fill();
 
         checkErase();
     }
 
     function checkErase() {
-        const pix = ctx.getImageData(0,0,300,200).data;
+        const pixels = ctx.getImageData(0, 0, 300, 200).data;
         let cleared = 0;
 
-        for (let i = 3; i < pix.length; i += 4) {
-            if (pix[i] === 0) cleared++;
+        for (let i = 3; i < pixels.length; i += 4) {
+            if (pixels[i] === 0) cleared++;
         }
 
-        if (cleared / (300*200) > 0.55) {
+        if (cleared / (300 * 200) > 0.55) {
             canvas.style.opacity = 0;
             setTimeout(() => {
                 isPlayingGame = false;
                 nextStep();
-            }, 500);
+            }, 600);
         }
     }
 
-    canvas.addEventListener("mousedown",()=>scratching=true);
-    canvas.addEventListener("mouseup",()=>scratching=false);
-    canvas.addEventListener("mousemove",scratch);
+    canvas.addEventListener("mousedown", ()=> scratching = true);
+    canvas.addEventListener("mouseup", ()=> scratching = false);
+    canvas.addEventListener("mousemove", scratch);
 
-    canvas.addEventListener("touchstart",()=>scratching=true);
-    canvas.addEventListener("touchend",()=>scratching=false);
-    canvas.addEventListener("touchmove",scratch);
+    canvas.addEventListener("touchstart", ()=> scratching = true);
+    canvas.addEventListener("touchend", ()=> scratching = false);
+    canvas.addEventListener("touchmove", scratch);
 }
 
 /* ====== ИГРА 5: Собери фразу ====== */
