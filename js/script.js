@@ -195,7 +195,7 @@ function startScratch() {
             border-radius:15px;
             overflow:hidden;
         ">
-            <img id="hidden-img" src="img/surprise.jpg" 
+            <img id="hidden-img" src="./img/surprise.jpg" 
                 style="width:100%; height:100%; object-fit:cover; position:absolute; left:0; top:0;">
 
             <canvas id="scratch" width="300" height="200" 
@@ -329,4 +329,5 @@ function createHeart() {
     c.appendChild(el);
 
     setTimeout(()=>el.remove(),5000);
+
 }
