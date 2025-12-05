@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial;
+    height: 100vh;
+    background: radial-gradient(circle at 20% 30%, #e678ff, #9f57ff, #5331ff);
+    background-size: 200%;
+    animation: bgShift 12s infinite alternate;
+    overflow: hidden;
+}
+
+@keyframes bgShift {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+.glass {
+    width: 420px;
+    margin: 90px auto;
+    padding: 30px;
+    border-radius: 25px;
+    backdrop-filter: blur(18px);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255,255,255,0.3);
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 35px rgba(255,255,255,0.35);
+}
+
+.fade-in {
+    animation: fade 0.6s ease forwards;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.neon-btn {
+    padding: 12px 30px;
+    margin: 10px;
+    border-radius: 40px;
+    font-size: 18px;
+    border: 2px solid rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5),
+                inset 0 0 10px rgba(255,255,255,0.3);
+}
+
+.neon-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 25px #ffb7f7, 0 0 45px #ffb7f7;
+}
+
+#hearts-container .heart {
+    position: fixed;
+    top: -30px;
+    animation: drop 5s linear;
+}
+
+@keyframes drop {
+    from { transform: translateY(-30px) scale(1); opacity: 1; }
+    to { transform: translateY(110vh) scale(1.4); opacity: 0; }
+}
+
+#star-game-box {
+    position: relative;
+    width: 300px;
+    height: 260px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 18px rgba(255,255,255,0.25);
+}
+
+#scratch {
+    border-radius: 20px;
+    box-shadow: 0 0 18px rgba(255,255,255,0.25);
+}
+
+#intro-screen {
+    position: fixed;
+    inset: 0;
+    background: #0a0013;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.intro-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro-content {
+    text-align: center;
+    color: white;
+}
